@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Admin Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .test-link {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 10px;
+            font-weight: bold;
+        }
+        .test-link:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Login Test</h1>
+    <p>Click the link below to test the admin login page:</p>
+    
+    <a href="admin-login.html" class="test-link">Test Admin Login Page</a>
+    
+    <br><br>
+    
+    <a href="index.html" class="test-link">Back to Main Page</a>
+    
+    <h2>Debugging Information:</h2>
+    <ul>
+        <li>Current directory: <span id="current-dir"></span></li>
+        <li>Admin login file exists: <span id="file-exists"></span></li>
+        <li>Server running: <span id="server-status">Checking...</span></li>
+    </ul>
+    
+    <script>
+        // Check if admin-login.html exists
+        fetch('admin-login.html')
+            .then(response => {
+                document.getElementById('file-exists').textContent = response.ok ? 'Yes' : 'No';
+            })
+            .catch(error => {
+                document.getElementById('file-exists').textContent = 'Error: ' + error.message;
+            });
+        
+        // Show current directory
+        document.getElementById('current-dir').textContent = window.location.href;
+        
+        // Check server status
+        fetch('index.html')
+            .then(response => {
+                document.getElementById('server-status').textContent = response.ok ? 'Running' : 'Not responding';
+            })
+            .catch(error => {
+                document.getElementById('server-status').textContent = 'Error: ' + error.message;
+            });
+    </script>
+</body>
+</html> 

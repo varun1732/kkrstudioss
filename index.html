@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KKR STUDIOS - Book Your Slot</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+
+    <!-- Hero Section -->
+    <!-- Login Icon -->
+    <div class="login-icon">
+        <a href="#" id="loginIcon" title="Login to View Bookings">
+            <i class="fas fa-user"></i>
+        </a>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3><i class="fas fa-sign-in-alt"></i> Login to View Bookings</h3>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i>
+                        Username
+                    </label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i>
+                        Password
+                    </label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bookings Modal -->
+    <div id="bookingsModal" class="modal">
+        <div class="modal-content large-modal">
+            <span class="close-modal">&times;</span>
+            <h3><i class="fas fa-calendar-check"></i> All Bookings</h3>
+            
+            <div id="allBookingsList" class="all-bookings-list">
+                <!-- All bookings will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-section">
+        <div class="hero-content">
+            <div class="logo-container">
+                <i class="fas fa-camera-retro logo-icon"></i>
+                <h1 class="hero-title">KKR STUDIOS</h1>
+            </div>
+            <p class="hero-subtitle">Professional Photography & Videography</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <span>500+ Happy Clients</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-star"></i>
+                    <span>4.9/5 Rating</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>24/7 Booking</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-card">
+                <div class="card-content">
+                    <h3>Book Your Session</h3>
+                    <p>₹10/hour</p>
+                    <div class="booking-badge">
+                        <i class="fas fa-clock"></i>
+                        <span>1 Hour Slots</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Booking Section -->
+    <div class="main-container">
+        <div class="booking-section">
+            <div class="section-header">
+                <h2>Reserve Your Time</h2>
+                <p>Choose your preferred date and time slot</p>
+            </div>
+
+            <form id="bookingForm" class="booking-form">
+                <div class="form-group">
+                    <label for="name">
+                        <i class="fas fa-user"></i>
+                        Full Name
+                    </label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mobile">
+                        <i class="fas fa-phone"></i>
+                        Mobile Number
+                    </label>
+                    <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i>
+                        Email Address
+                    </label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">
+                        <i class="fas fa-calendar"></i>
+                        Select Date
+                    </label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-clock"></i>
+                        Select Time Slot
+                    </label>
+                    <div class="time-slots" id="timeSlots">
+                        <!-- Time slots will be generated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="payment-section">
+                    <h3>Payment Method</h3>
+                    <div class="payment-option">
+                        <div class="qr-container">
+                            <div class="qr-code">
+                                <i class="fas fa-qrcode"></i>
+                            </div>
+                            <div class="payment-details">
+                                <h4>UPI Payment</h4>
+                                <p class="upi-id">varun173205@axl</p>
+                                <p class="payment-instruction">Scan QR code to pay ₹10</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="book-btn">
+                    <i class="fas fa-check"></i>
+                    Confirm Booking
+                </button>
+            </form>
+        </div>
+
+
+
+        <!-- Cancel Booking Section -->
+        <div class="cancel-section">
+            <div class="section-header">
+                <h2>Cancel Your Booking</h2>
+                <p>Need to cancel? Enter your mobile number below</p>
+            </div>
+
+            <div class="cancel-form">
+                <div class="form-group">
+                    <label for="cancelMobile">
+                        <i class="fas fa-phone"></i>
+                        Mobile Number
+                    </label>
+                    <input type="tel" id="cancelMobile" pattern="[0-9]{10}" placeholder="Enter your mobile number">
+                </div>
+                <button type="button" id="searchBooking" class="search-btn">
+                    <i class="fas fa-search"></i>
+                    Find My Booking
+                </button>
+            </div>
+
+            <div id="bookingDetails" class="booking-details" style="display: none;">
+                <!-- Booking details will be shown here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features-section">
+        <div class="container">
+            <h2>Why Choose KKR Studios?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>Professional Equipment</h3>
+                    <p>State-of-the-art cameras and lighting for perfect shots</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Flexible Timing</h3>
+                    <p>Book slots from 9 AM to 10 PM, 7 days a week</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Safe & Secure</h3>
+                    <p>Secure payment and booking confirmation system</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Expert Team</h3>
+                    <p>Experienced photographers and videographers</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>KKR Studios</h3>
+                    <p>Professional photography and videography services</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@kkrstudios.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#booking">Book Now</a></li>
+                        <li><a href="#cancel">Cancel Booking</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 KKR Studios. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

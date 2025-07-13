@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booked Slots List - KKR Studios</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            color: #feca57;
+        }
+
+        .stat-card p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .filters {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .filters h3 {
+            color: #fff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            padding: 12px 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: #feca57;
+        }
+
+        .bookings-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .booking-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .booking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .booking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .booking-id {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .booking-status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .booking-status.confirmed {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+        }
+
+        .booking-status.pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .booking-status.cancelled {
+            background: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+        }
+
+        .booking-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .detail-section {
+            background: rgba(102, 126, 234, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .detail-section h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+
+        .detail-section p {
+            margin: 5px 0;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .detail-section strong {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .booking-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-view {
+            background: linear-gradient(135deg, #17a2b8, #20c997);
+            color: #fff;
+        }
+
+        .btn-cancel {
+            background: linear-gradient(135deg, #dc3545, #e74c3c);
+            color: #fff;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .no-bookings {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+        }
+
+        .no-bookings i {
+            font-size: 4rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .no-bookings h3 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            padding: 12px 20px;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .booking-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .booking-actions {
+                justify-content: center;
+            }
+            
+            .back-btn {
+                top: 10px;
+                left: 10px;
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="admin.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+        Back to Admin
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <h1>
+                <i class="fas fa-calendar-check"></i>
+                Booked Slots List
+            </h1>
+            <p>Comprehensive view of all bookings with detailed information</p>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-card">
+                <h3 id="totalBookings">0</h3>
+                <p>Total Bookings</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="confirmedBookings">0</h3>
+                <p>Confirmed</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="pendingBookings">0</h3>
+                <p>Pending</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="cancelledBookings">0</h3>
+                <p>Cancelled</p>
+            </div>
+        </div>
+
+        <div class="filters">
+            <h3><i class="fas fa-filter"></i> Filter Bookings</h3>
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label for="dateFilter">Filter by Date:</label>
+                    <input type="date" id="dateFilter">
+                </div>
+                <div class="filter-group">
+                    <label for="statusFilter">Filter by Status:</label>
+                    <select id="statusFilter">
+                        <option value="all">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="searchInput">Search:</label>
+                    <input type="text" id="searchInput" placeholder="Search by name, mobile, or email">
+                </div>
+            </div>
+        </div>
+
+        <div class="bookings-grid" id="bookingsGrid">
+            <!-- Bookings will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        let bookings = [];
+        let filteredBookings = [];
+
+        // Load bookings from localStorage
+        function loadBookings() {
+            bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+            filteredBookings = [...bookings];
+            updateStats();
+            displayBookings();
+        }
+
+        // Update statistics
+        function updateStats() {
+            const totalBookings = bookings.length;
+            const confirmedBookings = bookings.filter(b => b.status === 'confirmed').length;
+            const pendingBookings = bookings.filter(b => b.status === 'pending').length;
+            const cancelledBookings = bookings.filter(b => b.status === 'cancelled').length;
+
+            document.getElementById('totalBookings').textContent = totalBookings;
+            document.getElementById('confirmedBookings').textContent = confirmedBookings;
+            document.getElementById('pendingBookings').textContent = pendingBookings;
+            document.getElementById('cancelledBookings').textContent = cancelledBookings;
+        }
+
+        // Display bookings
+        function displayBookings() {
+            const grid = document.getElementById('bookingsGrid');
+            
+            if (filteredBookings.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-bookings">
+                        <i class="fas fa-calendar-times"></i>
+                        <h3>No bookings found</h3>
+                        <p>There are no bookings matching your current filters.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filteredBookings.map(booking => {
+                // Calculate booking age
+                const createdDate = new Date(booking.createdAt);
+                const now = new Date();
+                const ageInHours = Math.floor((now - createdDate) / (1000 * 60 * 60));
+                const ageInDays = Math.floor(ageInHours / 24);
+                const ageText = ageInDays > 0 ? `${ageInDays} days ago` : `${ageInHours} hours ago`;
+
+                return `
+                    <div class="booking-card">
+                        <div class="booking-header">
+                            <div class="booking-id">${booking.id}</div>
+                            <div class="booking-status ${booking.status}">${booking.status.toUpperCase()}</div>
+                        </div>
+                        
+                        <div class="booking-details">
+                            <div class="detail-section">
+                                <h4><i class="fas fa-user"></i> Customer Information</h4>
+                                <p><strong>Name:</strong> ${booking.name}</p>
+                                <p><strong>Mobile:</strong> ${booking.mobile}</p>
+                                <p><strong>Email:</strong> ${booking.email}</p>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-calendar-alt"></i> Session Details</h4>
+                                <p><strong>Date:</strong> ${formatDate(booking.date)}</p>
+                                <p><strong>Time:</strong> ${booking.time}</p>
+                                <p><strong>Duration:</strong> 1 Hour</p>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-credit-card"></i> Payment Information</h4>
+                                <p><strong>Method:</strong> ${booking.paymentMethod || 'UPI'}</p>
+                                <p><strong>Amount:</strong> ₹${booking.amount || 10}</p>
+                                <p><strong>UPI ID:</strong> varun173205@axl</p>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4><i class="fas fa-info-circle"></i> Additional Info</h4>
+                                <p><strong>Created:</strong> ${createdDate.toLocaleString()}</p>
+                                <p><strong>Age:</strong> ${ageText}</p>
+                                <p><strong>Studio:</strong> KKR Studios</p>
+                            </div>
+                        </div>
+                        
+                        <div class="booking-actions">
+                            <button class="btn btn-view" onclick="viewBookingDetails('${booking.id}')">
+                                <i class="fas fa-eye"></i>
+                                View Details
+                            </button>
+                            <button class="btn btn-cancel" onclick="cancelBooking('${booking.id}')">
+                                <i class="fas fa-times"></i>
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Filter bookings
+        function filterBookings() {
+            const dateFilter = document.getElementById('dateFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+
+            filteredBookings = bookings.filter(booking => {
+                const matchesDate = !dateFilter || booking.date === dateFilter;
+                const matchesStatus = statusFilter === 'all' || booking.status === statusFilter;
+                const matchesSearch = !searchInput || 
+                    booking.name.toLowerCase().includes(searchInput) ||
+                    booking.mobile.includes(searchInput) ||
+                    booking.email.toLowerCase().includes(searchInput);
+
+                return matchesDate && matchesStatus && matchesSearch;
+            });
+
+            displayBookings();
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // View booking details
+        function viewBookingDetails(bookingId) {
+            const booking = bookings.find(b => b.id === bookingId);
+            if (booking) {
+                alert(`
+Booking Details:
+ID: ${booking.id}
+Name: ${booking.name}
+Mobile: ${booking.mobile}
+Email: ${booking.email}
+Date: ${formatDate(booking.date)}
+Time: ${booking.time}
+Status: ${booking.status}
+Amount: ₹${booking.amount || 10}
+                `);
+            }
+        }
+
+        // Cancel booking
+        function cancelBooking(bookingId) {
+            if (confirm('Are you sure you want to cancel this booking?')) {
+                const bookingIndex = bookings.findIndex(b => b.id === bookingId);
+                if (bookingIndex !== -1) {
+                    bookings[bookingIndex].status = 'cancelled';
+                    bookings[bookingIndex].cancelledDate = new Date().toISOString();
+                    localStorage.setItem('bookings', JSON.stringify(bookings));
+                    loadBookings();
+                    alert('Booking cancelled successfully!');
+                }
+            }
+        }
+
+        // Setup event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBookings();
+            
+            document.getElementById('dateFilter').addEventListener('change', filterBookings);
+            document.getElementById('statusFilter').addEventListener('change', filterBookings);
+            document.getElementById('searchInput').addEventListener('input', filterBookings);
+        });
+    </script>
+</body>
+</html> 
